@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -135,7 +135,9 @@ function firework(x,y){
 
 // Click nút chính
 loveBtn.onclick=()=>{
-    document.getElementById("bgMusic").play()
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.8;   // âm lượng 80%
+    music.play();        // BẮT ĐẦU CHẠY NHẠC
     finalMessage.style.display="block"
     proposal.style.display="block"
     for(let i=0;i<5;i++){
@@ -166,3 +168,5 @@ function sayYes(){
 </script>
 </body>
 </html>
+
+
