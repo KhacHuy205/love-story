@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Love Story 💖</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    height:100vh;overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(120deg,#ff758c,#ff7eb3,#ffd3a5);
+    display:flex;justify-content:center;align-items:center;
+    color:white;
+}
+.container{text-align:center;z-index:10}
+.text{font-size:46px;font-weight:bold;opacity:0;margin-bottom:20px}
+.show{animation:fadeIn 2s forwards,glow 2s infinite alternate}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
+@keyframes glow{from{text-shadow:0 0 10px white}to{text-shadow:0 0 40px #fff}}
+
+.images{display:flex;gap:30px;justify-content:center;opacity:0}
+.images img{
+    width:220px;height:300px;object-fit:cover;
+    border-radius:20px;
+    box-shadow:0 0 25px rgba(255,255,255,0.7);
+    animation:pulse 2s infinite;
+}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+
+button{
+    margin-top:25px;padding:15px 35px;font-size:22px;
+    border:none;border-radius:50px;
+    background:linear-gradient(45deg,#ff2d55,#ff8fab);
+    color:white;cursor:pointer;
+    box-shadow:0 0 20px rgba(255,45,85,0.8);
+    animation:pulse 1.5s infinite;
+}
+
+.heart{position:absolute;font-size:24px;animation:floatUp 6s linear infinite}
+@keyframes floatUp{from{transform:translateY(100vh)}to{transform:translateY(-10vh);opacity:0}}
+
+.firework{
+    position:absolute;width:8px;height:8px;
+    background:white;border-radius:50%;
+    animation:explode 1.2s forwards;
+}
+@keyframes explode{
+    to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}
+}
+
+.message{font-size:40px;margin-top:30px;display:none}
+.proposal{display:none;margin-top:30px}
+.proposal button{margin:15px}
+.yes{background:linear-gradient(45deg,#00ff9d,#00c9ff)}
+.no{background:linear-gradient(45deg,#555,#999);position:absolute}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+    <!-- PHẦN MỞ ĐẦU -->
+    <div id="line1" class="text">Hôm nay là kỉ niệm của chúng ta</div>
+    <div id="line2" class="text">Anh rất vui khi được ở bên bé 6 năm ❤️</div>
+
+    <!-- ẢNH -->
+    <div id="images" class="images">
+        <img src="img1.jpg">
+        <img src="img2.jpg">
+    </div>
+
+    <!-- NÚT -->
+    <button id="loveBtn" style="display:none">
+          Anh có điều muốn nói
+    </button>
+
+    <!-- LỜI NHẮN -->
+    <div id="finalMessage" class="message">
+        Bé yêu sau này sẽ làm vợ anh nhá :>> ❤️
+    </div>
+
+    <!-- MÀN CẦU HÔN -->
+    <div id="proposal" class="proposal">
+        <div class="message">
+            Em làm người yêu anh cả đời nhé? 💍
+        </div>
+        <button class="yes" onclick="sayYes()">Bé đồng ý ạ 💖</button>
+        <button id="noBtn" class="no">Từ từ suy nghĩ thêm 🙄</button>
+    </div>
+
+    <!-- KẾT QUẢ -->
+    <div id="result" class="message"></div>
+</div>
+
+<audio id="bgMusic" autoplay loop>
+    <source src="ngay_dau_tien.mp3" type="audio/mpeg">
+</audio>
+
+
+
+
+<script>
+// Hiện từng phần theo timeline
+setTimeout(()=>line1.classList.add("show"),500)
+setTimeout(()=>line2.classList.add("show"),3500)
+setTimeout(()=>{
+    images.style.opacity=1
+    loveBtn.style.display="inline-block"
+},6500)
+
+// Trái tim bay
+setInterval(()=>{
+    const h=document.createElement("div")
+    h.className="heart"
+    h.innerHTML="❤️"
+    h.style.left=Math.random()*100+"vw"
+    document.body.appendChild(h)
+    setTimeout(()=>h.remove(),6000)
+},300)
+
+// Pháo hoa
+function firework(x,y){
+    for(let i=0;i<40;i++){
+        const fw=document.createElement("div")
+        fw.className="firework"
+        fw.style.left=x+"px"
+        fw.style.top=y+"px"
+        fw.style.setProperty("--x",(Math.random()*300-150)+"px")
+        fw.style.setProperty("--y",(Math.random()*300-150)+"px")
+        document.body.appendChild(fw)
+        setTimeout(()=>fw.remove(),1200)
+    }
+}
+
+// Click nút chính
+loveBtn.onclick=()=>{
+    document.getElementById("bgMusic").play()
+    finalMessage.style.display="block"
+    proposal.style.display="block"
+    for(let i=0;i<5;i++){
+        setTimeout(()=>firework(
+            Math.random()*innerWidth,
+            Math.random()*innerHeight
+        ),i*500)
+    }
+}
+
+// Nút NO chạy trốn
+noBtn.onmouseover=()=>{
+    noBtn.style.left=Math.random()*90+"vw"
+    noBtn.style.top=Math.random()*90+"vh"
+}
+
+// YES
+function sayYes(){
+    result.innerHTML="She said YES!!! 💍❤️"
+    proposal.style.display="none"
+    for(let i=0;i<12;i++){
+        setTimeout(()=>firework(
+            Math.random()*innerWidth,
+            Math.random()*innerHeight
+        ),i*300)
+    }
+}
+</script>
+</body>
+</html>
